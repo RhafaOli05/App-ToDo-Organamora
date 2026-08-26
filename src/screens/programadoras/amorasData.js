@@ -9,6 +9,6 @@ export const Devs = [
   },
   {
     title: 'Victoria',
-    img: require('../../../assets/vicky.jpg'),
+    img: require('../../../assets/vicky.jpeg'),
   }
 ]
