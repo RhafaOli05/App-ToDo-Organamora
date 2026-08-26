@@ -2,6 +2,9 @@ import { Text, View, TouchableOpacity, TextInput, FlatList, ActivityIndicator, I
 import { generalStyles } from '../../styles/general-styles.js';
 import { devStyles } from './styles.js';
 import { useState, useEffect } from 'react';
+import { Button } from 'react-native-web';
+import { deleteDev } from './Delete/deleteDevs.js'
+import { getDevs } from '../../services/devServices.js'
 
 export function DevsScreen({ navigation }) {
 
@@ -11,13 +14,14 @@ export function DevsScreen({ navigation }) {
   const [loading, setLoading] = useState(false);
 
   // Função para buscar os desenvolvedores
-  const fetchDevs = async () => {
+  const axiosDevs = async () => {
     setLoading(true);
 
     try {
-      const response = await fetch('http://localhost:3000/devs');
-      const data = await response.json();
+      const data = await getDevs();
+
       console.log('Desenvolvedores recebidos:', data);
+
       setDevs(data);
       setFilteredDevs(data);
 
@@ -58,23 +62,28 @@ export function DevsScreen({ navigation }) {
 
   // Carregar os desenvolvedores quando abrir a tela
   useEffect(() => {
-    fetchDevs();
+    axiosDevs();
   }, []);
 
   // Renderiza cada desenvolvedor
   const renderDev = ({ item }) => (
+
     <View style={devStyles.devCard}>
       <View style={devStyles.devHeader}>
         {/* Imagem do desenvolvedor */}
-        <Image 
-          source={{ uri: item.foto }} 
+        <Image
+          source={{ uri: item.foto }}
           style={devStyles.devAvatar}
         />
-        
+
         <View style={devStyles.devInfo}>
           <Text style={devStyles.devName}>{item.nome}</Text>
           <Text style={devStyles.devFuncao}>{item.funcao}</Text>
-          <Text style={devStyles.devId}>ID: {item.id_devs}</Text>
+
+          <TouchableOpacity style={generalStyles.button} onPress={() => deleteDev(item.id_devs)}>
+            <Text style={generalStyles.buttonText}>Excluir</Text>
+          </TouchableOpacity>
+          
         </View>
       </View>
 
@@ -95,11 +104,14 @@ export function DevsScreen({ navigation }) {
         onChangeText={searchDevs}
       />
 
+      {/* botao novo para levar para a register screen */}
+      <Button title='Cadastrar' onPress={() => navigation.navigate("RegisterScreen")}/>
+
       {/* Lista de desenvolvedores */}
       {loading ? (
         <ActivityIndicator size="large" color="#f5b8f1" />
       ) : (
-        <FlatList 
+        <FlatList
           data={filteredDevs}
           renderItem={renderDev}
           keyExtractor={(item) => item.id_devs.toString()}

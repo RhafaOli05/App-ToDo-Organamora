@@ -1,23 +1,24 @@
 import { Text, View, TouchableOpacity, TextInput } from 'react-native';
 import { generalStyles } from '../../styles/general-styles.js';
-import { styles } from '../users/style.js';
+import { userStyles } from './users-screens-get/style.js';
 import { useState, useEffect } from 'react';
 import { ActivityIndicator, FlatList } from 'react-native-web';
+import { getUsers } from '../../services/userServices.js';
+import { Button } from 'react-native-web';
 
 export function UsersScreen({ navigation }) {
-    const [serchTerm, setSearchTerm] = useState('');
+    const [searchTerm, setSearchTerm] = useState('');
     const [users, setUsers] = useState([]);
     const [filteredUsers, setFilteredUsers] = useState([]);
     const [loading, setLoading] = useState(false);
     
-
     //Função para buscar todos os usuários
-    const fetchUSers = async () => {
+    const loadUSers = async () => {
       setLoading(true);
 
       try {
-        const response = await fetch('http://localhost:3000/users');
-        const data = await response.json();
+        const data = await getUsers();
+
         setUsers(data);
         setFilteredUsers(data);
 
@@ -52,29 +53,35 @@ export function UsersScreen({ navigation }) {
 
     //Carregar os usuários quando abrir a tela
     useEffect (() => {
-      fetchUSers();
+      loadUSers();
     }, []);
 
     //Renderizar cada usuário na tela
     const renderUser = ({ item }) => (
-      <View style={styles.userCard}>
-        <Text style={styles.userName}>{item.nome}</Text>
-        <Text style={styles.userId}> ID: {item.id_users}</Text>
+      <View style={userStyles.userCard}>
+        <Text style={userStyles.userName}>{item.nome}</Text>
+        <Text style={userStyles.userId}> ID: {item.id_users}</Text>
+        <TouchableOpacity style={generalStyles.button} onPress={() => deleteDevs(item.id_devs)}>
+          <Text style={generalStyles.buttonText}>Excluir</Text>
+        </TouchableOpacity>
       </View>
     );
 
   return (
     <View style={generalStyles.container}>
-      <Text style={styles.title}>Usuários</Text>
+      <Text style={userStyles.title}>Usuários</Text>
 
       {/* Barra de pesquisa */}
       <TextInput
-        style={styles.searchBar}
+        style={userStyles.searchBar}
         placeholder="Pesquisar usuários..."
         placeholderTextColor="#999"
-        alue={serchTerm}
+        value={searchTerm}
         onChangeText={searchUsers}
       />
+
+      {/* botao novo para levar para a register screen */}
+      <Button title='Cadastrar' onPress={() => navigation.navigate("InsertScreen")} />
 
       {/* Lista de usuários */}
       {loading ? (
@@ -84,9 +91,9 @@ export function UsersScreen({ navigation }) {
           data={filteredUsers}
           renderItem={renderUser}
           keyExtractor={(item) => item.id_users.toString()}
-          style={styles.userList}
+          style={userStyles.userList}
           ListEmptyComponent={
-            <Text style={styles.emptyText}>Nenhum usuário encontrado</Text>
+            <Text style={userStyles.emptyText}>Nenhum usuário encontrado</Text>
           }
         />
       )}

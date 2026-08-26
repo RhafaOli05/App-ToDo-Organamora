@@ -111,4 +111,56 @@ router.get('/:id', (req, res) => {
     });
 });
 
+//Rota Post - Cadastra um novo user e task
+
+router.post('/', (req, res) => {
+    const { id_tasks, id_users, horario } = req.body;
+
+    const sql = "INSERT INTO tbl_usersTasks(id_tasks, id_users, horario) VALUES (?, ?, ?)";
+
+    db.query(sql, [id_tasks, id_users, horario], (err, result) => {
+
+        if (err) {
+            console.log(err);
+            return res.status(500).json({
+                erro: "Erro ao Inserir"
+            });
+        };
+
+        res.status(201).json({
+            sucesso: true,
+            mensagem: "Usuário e Tarefa Cadastrada com sucesso!",
+            id: result.insertId
+        })
+    });
+
+});
+
+// Rota DELETE - remove o vínculo entre usuário e tarefa
+router.delete('/', (req, res) => {
+    const { id_users, id_tasks } = req.query;
+
+    if (!id_users || !id_tasks) {
+        return res.status(400).json({ error: 'Informe id_users e id_tasks' });
+    }
+
+    const query = 'DELETE FROM tbl_usersTasks WHERE id_users = ? AND id_tasks = ?';
+
+    db.query(query, [id_users, id_tasks], (err, result) => {
+        if (err) {
+            console.error('Erro ao remover vínculo:', err);
+            return res.status(500).json({ error: 'Erro interno do servidor' });
+        }
+
+        if (result.affectedRows === 0) {
+            return res.status(404).json({ error: 'Vínculo não encontrado' });
+        }
+
+        res.json({
+            sucesso: true,
+            mensagem: 'Vínculo removido com sucesso!'
+        });
+    });
+});
+
 module.exports = router;

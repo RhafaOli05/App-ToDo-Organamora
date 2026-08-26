@@ -1,7 +1,7 @@
 import { Text, View, TouchableOpacity, StyleSheet, Image, FlatList, StatusBar } from 'react-native';
 import { styles } from './styles.js';
 import { generalStyles } from '../../styles/general-styles.js';
-import { Devs } from './programadoras.js';
+import { Devs } from './amorasData.js';
 
 export function ProgramadorasScreen({ navigation }) {
   return (

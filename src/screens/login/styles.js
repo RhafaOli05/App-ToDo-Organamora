@@ -18,4 +18,11 @@ export const styles = StyleSheet.create({
       backgroundColor: '#fff',
       fontSize: 16,
     },
+    logo:{
+      width: '80%',
+      aspectRatio: 3,
+      resizeMode: 'contain',
+      marginBottom: 30,
+      maxWidth: 500,
+    }
 });

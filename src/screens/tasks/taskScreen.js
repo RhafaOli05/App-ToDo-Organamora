@@ -1,7 +1,9 @@
-import { Text, View, TouchableOpacity, TextInput, FlatList, ActivityIndicator } from 'react-native';
+import { Text, View, TouchableOpacity, TextInput, FlatList, ActivityIndicator, Button } from 'react-native';
 import { generalStyles } from '../../styles/general-styles.js';
 import { taskStyles } from './styles.js';
 import { useState, useEffect } from 'react';
+import { deleteTasks } from './Delete/deleteTasks.js';
+import { getTasks } from '../../services/tasksServices.js';
 
 export function TarefasScreen({ navigation }) {
 
@@ -11,13 +13,14 @@ export function TarefasScreen({ navigation }) {
   const [loading, setLoading] = useState(false);
 
   //Função para buscar as tarefas
-  const fetchTasks = async () => {
+  const axiosTasks = async () => {
     setLoading(true);
 
     try {
-      const response = await fetch ('http://localhost:3000/tasks');
-      const data = await response.json();
+      const data = await getTasks();
+
       console.log('Tarefas recebidas:', data);
+
       setTasks(data);
       setFilteredTasks(data);
 
@@ -58,7 +61,7 @@ export function TarefasScreen({ navigation }) {
 
   //Carregar as tarefas quando abrir a tela
   useEffect(() => {
-    fetchTasks();
+    axiosTasks();
   }, []);
 
   //Define a cor do status
@@ -97,8 +100,12 @@ export function TarefasScreen({ navigation }) {
         <Text style={[taskStyles.taskDetail, { color: getRelevanciaColor(item.relevancia), fontWeight: 'bold' }]}>  
           Relevância: {item.relevancia}
         </Text>
-
+   
         <Text style={taskStyles.taskDetail}> ID da tarefa: {item.id_tasks} </Text>
+
+        <TouchableOpacity style={generalStyles.button} onPress={() => deleteTasks(item.id_tasks)}>
+          <Text style={generalStyles.buttonText}>Excluir</Text>
+        </TouchableOpacity>
       </View>
     );
 
@@ -114,6 +121,9 @@ export function TarefasScreen({ navigation }) {
       value={searchTerm}
       onChangeText={searchTasks}
     />
+
+    {/* botao novo para levar para a register screen */}
+          <Button title='Cadastrar' onPress={() => navigation.navigate("DadosScreen")}/>
 
     {/* Lista de tarefas */}
       {loading ? (

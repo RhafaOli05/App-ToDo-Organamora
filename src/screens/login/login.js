@@ -17,6 +17,7 @@ export function LoginScreen({ navigation }) {
 
   return (
     <View style={generalStyles.container}> 
+    <Image source={require('../../../assets/Organamora.png')} style={styles.logo} />
       <Text style={styles.title}>Login</Text>
       
       <TextInput

@@ -12,6 +12,12 @@ export const styles = StyleSheet.create({
       marginBottom: 20,
       color: '#666',
     },
+    logo: {
+      width: '80%',
+      aspectRatio: 3,
+      resizeMode: 'contain',
+      maxWidth: 400,
+    },
     navButton: {
       backgroundColor: '#8b3dff',
       paddingVertical: 15,

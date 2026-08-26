@@ -6,6 +6,7 @@ export function HomeScreen({ navigation }) {
   return (
     <View style={generalStyles.container}>
       <Text style={styles.title}>Bem-vindo!</Text>
+      <Image source={require('../../../assets/Organamora.png')} style={styles.logo} />
       <Text style={styles.subtitle}>Navegue pelo nosso app</Text>
       
       <View style={styles.buttonContainer}>
