@@ -3,7 +3,7 @@ import { generalStyles } from '../../styles/general-styles.js';
 import { styles } from './style.js';
 import { useState, useEffect } from 'react';
 import { deleteUserTasks } from '../../services/userTasksServices.js';
-import { getUserTasks } from '../../services/userTasksServices.js';
+import { getUserTask } from '../../services/userTasksServices.js';
 
 export function UserTaskScreen({ navigation }) {
   const [searchTerm, setSearchTerm] = useState('');
@@ -14,11 +14,11 @@ export function UserTaskScreen({ navigation }) {
 
 
   //Função para buscar todos os usuários com as tarefas
-  const axiosUSersTasks = async () => {
+  const axiosUserTask = async () => {
     setLoading(true);
 
     try {
-      const data = await getUserTasks();
+      const data = await getUserTask();
 
       setUsersTasks(data);
       setFilteredUsersTasks(data);
@@ -59,7 +59,7 @@ export function UserTaskScreen({ navigation }) {
 
   //Carregar os usuários quando abrir a tela
   useEffect(() => {
-    axiosUSersTasks();
+    axiosUserTask();
   }, []);
 
   //Renderizar cada tarefa
@@ -105,7 +105,7 @@ export function UserTaskScreen({ navigation }) {
       </Text>
       <Text style={styles.taskDetail}>🕒 Horário: {task.horario}</Text>
       <Text style={styles.taskDetail}>🔖 ID da Tarefa: {task.id_tasks}</Text>
-      <TouchableOpacity style={generalStyles.button} onPress={() => deleteUserTasks(task.id_tasks)}>
+      <TouchableOpacity style={generalStyles.button} onPress={() => deleteUserTasks(task.id_usersTasks)}>
           <Text style={generalStyles.buttonText}>Excluir</Text>
       </TouchableOpacity>
     </View>
@@ -156,7 +156,10 @@ export function UserTaskScreen({ navigation }) {
       <Text style={styles.title}>Usuários e Tarefas</Text>
 
       {/* botao novo para levar para a register screen */}
-      <Button title='Cadastrar' onPress={() => navigation.navigate("InserirScreen")}/>
+
+      <TouchableOpacity style={generalStyles.button} onPress={() => navigation.navigate("InserirScreen")}>
+          <Text style={generalStyles.buttonText}>Cadastrar</Text>
+      </TouchableOpacity>
 
       {/* Barra de pesquisa */}
       <TextInput

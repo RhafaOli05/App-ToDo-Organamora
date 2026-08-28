@@ -1,9 +1,10 @@
 import { Text, View, TouchableOpacity, TextInput } from 'react-native';
 import { generalStyles } from '../../styles/general-styles.js';
-import { userStyles } from './users-screens-get/style.js';
+import { userStyles } from './style.js';
 import { useState, useEffect } from 'react';
 import { ActivityIndicator, FlatList } from 'react-native-web';
 import { getUsers } from '../../services/userServices.js';
+import { deleteUser } from '../../services/userServices.js';
 import { Button } from 'react-native-web';
 
 export function UsersScreen({ navigation }) {
@@ -61,7 +62,7 @@ export function UsersScreen({ navigation }) {
       <View style={userStyles.userCard}>
         <Text style={userStyles.userName}>{item.nome}</Text>
         <Text style={userStyles.userId}> ID: {item.id_users}</Text>
-        <TouchableOpacity style={generalStyles.button} onPress={() => deleteDevs(item.id_devs)}>
+        <TouchableOpacity style={generalStyles.button} onPress={() => deleteUser(item.id_users)}>
           <Text style={generalStyles.buttonText}>Excluir</Text>
         </TouchableOpacity>
       </View>
@@ -81,7 +82,10 @@ export function UsersScreen({ navigation }) {
       />
 
       {/* botao novo para levar para a register screen */}
-      <Button title='Cadastrar' onPress={() => navigation.navigate("InsertScreen")} />
+
+      <TouchableOpacity style={generalStyles.button} onPress={() => navigation.navigate("InsertScreen")}>
+        <Text style={generalStyles.buttonText}>Cadastrar</Text>
+      </TouchableOpacity>
 
       {/* Lista de usuários */}
       {loading ? (

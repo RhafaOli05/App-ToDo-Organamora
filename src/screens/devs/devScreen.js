@@ -3,7 +3,7 @@ import { generalStyles } from '../../styles/general-styles.js';
 import { devStyles } from './styles.js';
 import { useState, useEffect } from 'react';
 import { Button } from 'react-native-web';
-import { deleteDev } from './Delete/deleteDevs.js'
+import { deleteDev } from '../../services/devServices.js';
 import { getDevs } from '../../services/devServices.js'
 
 export function DevsScreen({ navigation }) {
@@ -105,7 +105,10 @@ export function DevsScreen({ navigation }) {
       />
 
       {/* botao novo para levar para a register screen */}
-      <Button title='Cadastrar' onPress={() => navigation.navigate("RegisterScreen")}/>
+
+      <TouchableOpacity style={generalStyles.button} onPress={() => navigation.navigate("RegisterScreen")}>
+        <Text style={generalStyles.buttonText}>Cadastrar</Text>
+      </TouchableOpacity>
 
       {/* Lista de desenvolvedores */}
       {loading ? (

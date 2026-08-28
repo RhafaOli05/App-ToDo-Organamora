@@ -7,7 +7,7 @@ export const styles = StyleSheet.create({
       marginBottom: 20,
       color: '#333',
     },
-     searchBar: {
+    searchBar: {
         height: 50,
         borderWidth: 1,
         borderColor: '#ddd',

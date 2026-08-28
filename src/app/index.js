@@ -1,7 +1,7 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { TarefasScreen } from '../screens/tasks/taskScreen.js'
-import { UsersScreen } from '../screens/users/users-screens-get/index.js'
+import { UsersScreen } from '../screens/users/userScreen.js';
 import { UserTaskScreen } from '../screens/user-tasks/userTasksScreen.js'
 import { LoginScreen } from '../screens/login/login.js'
 import { HomeScreen } from '../screens/home/home.js'
@@ -10,7 +10,7 @@ import { SobreScreen } from '../screens/infos/index.js'
 import { ProgramadorasScreen } from '../screens/programadoras/amorasCiberneticas.js'
 import { RegisterScreen } from '../screens/devs/createDevScreen.js';
 import { InsertUser } from '../screens/users/createUserScreen.js';
-import { DadosScreen } from '../screens/tasks/createTaskScreen.js';
+import { DadosTask } from '../screens/tasks/createTaskScreen.js';
 import { InserirScreen } from '../screens/user-tasks/postUserTask.js';
 
 const Stack = createStackNavigator();
@@ -39,7 +39,7 @@ export default function App() {
         {/* aqui é a rota pra poder levar pra RegisterScreen */}
         <Stack.Screen name="RegisterScreen" component={RegisterScreen} />
         <Stack.Screen name="InsertScreen" component={InsertUser} />
-        <Stack.Screen name="DadosScreen" component={DadosScreen} />
+        <Stack.Screen name="DadosTask" component={DadosTask} />
         <Stack.Screen name="InserirScreen" component={InserirScreen} />
       </Stack.Navigator>
     </NavigationContainer>

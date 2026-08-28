@@ -4,7 +4,7 @@ import { taskStyles } from './styles.js';
 import { useState } from 'react';
 import { postTask } from '../../services/tasksServices.js';
 
-export function insertTask({ navigation }) {
+export function DadosTask({ navigation }) {
 
   const [nome, setNome] = useState("");
   const [tempo, setTempo] = useState("");

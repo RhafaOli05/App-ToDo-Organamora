@@ -22,7 +22,7 @@ export function InserirScreen({ navigation }) {
 
   return (
     <View style={generalStyles.container}>
-      <Text style={styles.title}>Cadastrar Tarefas</Text>
+      <Text style={styles.title}>Cadastrar Usuários e Tarefas</Text>
 
       <TextInput style={styles.searchBar} placeholder='Id Tarefa' value={id_tasks} onChangeText={setTaskUser} />
       <TextInput style={styles.searchBar} placeholder='Id Usuário' value={id_users} onChangeText={setUserTask} />

@@ -2,7 +2,7 @@ import { Text, View, TouchableOpacity, TextInput, FlatList, ActivityIndicator, B
 import { generalStyles } from '../../styles/general-styles.js';
 import { taskStyles } from './styles.js';
 import { useState, useEffect } from 'react';
-import { deleteTasks } from './Delete/deleteTasks.js';
+import { deleteTasks } from '../../services/tasksServices.js';
 import { getTasks } from '../../services/tasksServices.js';
 
 export function TarefasScreen({ navigation }) {
@@ -123,7 +123,10 @@ export function TarefasScreen({ navigation }) {
     />
 
     {/* botao novo para levar para a register screen */}
-          <Button title='Cadastrar' onPress={() => navigation.navigate("DadosScreen")}/>
+
+      <TouchableOpacity style={generalStyles.button} onPress={() => navigation.navigate("DadosTask")}>
+        <Text style={generalStyles.buttonText}>Cadastrar</Text>
+      </TouchableOpacity>
 
     {/* Lista de tarefas */}
       {loading ? (
