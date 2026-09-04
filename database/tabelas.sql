@@ -1,11 +1,10 @@
 CREATE DATABASE dbDados;
 USE dbDados;
 
-CREATE TABLE tbl_admin(
-	id_admin INT PRIMARY KEY AUTO_INCREMENT,
-    nomeAdmin VARCHAR(120),
-    senhaAdmin VARCHAR(10),
-    dtNascimento DATE,
+CREATE TABLE tbl_registration(
+	id INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(120),
+    senha VARCHAR(10),
     email VARCHAR(100)
 );
 

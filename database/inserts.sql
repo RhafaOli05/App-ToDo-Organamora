@@ -1,11 +1,5 @@
 USE dbDados;
 
-INSERT INTO tbl_admin(nomeAdmin, senhaAdmin, dtNascimento, email) VALUES
-('admin', 'admin', '1990-01-15', 'admin@email.com'),
-('Maria Silva', '098779', '1995-06-20', 'maria@email.com'),
-('João Santos', '1234567890', '1992-11-10', 'joao@email.com');
-
-
 INSERT INTO tbl_devs(nome, funcao, foto, frase) VALUES
 ('Thiago Mantovani', 'Desenvolvedor Backend (Node.js)', 'https://i.pravatar.cc/150?u=thiago', 'Café é o combustível, mas o código limpo é a alma do projeto.'),
 ('Beatriz Luz da Silva', 'Desenvolvedora Frontend (React) & CSS', 'https://i.pravatar.cc/150?u=beatriz', 'Acessibilidade não é bonitinho ter.É seu código não presta sem ela'),

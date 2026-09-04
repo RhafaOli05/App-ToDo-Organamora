@@ -1,17 +1,35 @@
 import * as React from 'react';
 import { Text, View, TextInput, TouchableOpacity, Alert, Image } from 'react-native';
 import { styles } from './styles.js';
-import { generalStyles } from '../../styles/general-styles.js'; 
+import { generalStyles } from '../../styles/general-styles.js';
+import axios from 'axios';
 
 export function LoginScreen({ navigation }) {
   const [username, setUsername] = React.useState('');
   const [password, setPassword] = React.useState('');
 
-  const handleLogin = () => {
-    if (username === 'admin' && password === 'admin') {
-      navigation.replace('Home');
-    } else {
-      Alert.alert('Erro', 'Usuário ou senha inválidos!');
+  const handleLogin = async () => {
+
+    console.log('BOTÃO DE LOGIN CLICADO');
+    console.log('Email:', username);
+    console.log('Senha:', password);
+
+    try {
+      const response = await axios.post(
+        'http://localhost:3000/login',
+
+        {
+          email: username,
+          senha: password
+        }
+      );
+
+      if (response.data.sucesso) {
+        navigation.replace('Home')
+      }
+
+    } catch (error) {
+      Alert.alert('Erro', 'Email ou senha inválidos')
     }
   };
 
@@ -22,10 +40,11 @@ export function LoginScreen({ navigation }) {
       
       <TextInput
         style={styles.input}
-        placeholder="Usuário"
+        placeholder="E-mail"
         value={username}
         onChangeText={setUsername}
         autoCapitalize="none"
+        keyboardType="email-address"
       />
       
       <TextInput
@@ -38,6 +57,10 @@ export function LoginScreen({ navigation }) {
       
       <TouchableOpacity style={generalStyles.button} onPress={handleLogin}>
         <Text style={generalStyles.buttonText}>Entrar</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity onPress={() => navigation.navigate('Cadastro')}>
+        <Text> Criar uma conta </Text>
       </TouchableOpacity>
     </View>
   );

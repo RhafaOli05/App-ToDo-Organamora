@@ -12,6 +12,7 @@ import { RegisterScreen } from '../screens/devs/createDevScreen.js';
 import { InsertUser } from '../screens/users/createUserScreen.js';
 import { DadosTask } from '../screens/tasks/createTaskScreen.js';
 import { InserirScreen } from '../screens/user-tasks/postUserTask.js';
+import { RegistrationScreen } from '../screens/registration/registrationScreen.js';
 
 const Stack = createStackNavigator();
 
@@ -29,6 +30,7 @@ export default function App() {
       }}
       >
         <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false }} />
+        <Stack.Screen name="Cadastro" component={RegistrationScreen} options={{ title: 'Cadastro' }}/>
         <Stack.Screen name="Home" component={HomeScreen} options={{ title: 'Tarefy' }} />
         <Stack.Screen name="Desenvolvedores" component={DevsScreen} options={{ title: 'Desenvolvedores' }} />
         <Stack.Screen name="Usuarios" component={UsersScreen} options={{ title: 'Usuários' }} />

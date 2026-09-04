@@ -4,6 +4,7 @@ const usersRoutes = require('./routes/usersRoutes');
 const userTasksRoutes = require('./routes/userTasksRoutes');
 const tasksRoutes = require('./routes/tasksRoutes');
 const devsRoutes = require('./routes/devsRoutes');
+const loginRoutes = require('./routes/loginRoutes');
 
 const app = express();
 
@@ -26,6 +27,9 @@ app.use('/tasks', tasksRoutes);
 
 //ROTAS - DEVS
 app.use('/devs', devsRoutes);
+
+//ROTA - LOGIN
+app.use('/login', loginRoutes);
 
 //ROTAS
 app.get('/', (req, res) => {
