@@ -20,10 +20,16 @@
         "foregroundImage": "./assets/android-icon-foreground.png",
         "backgroundImage": "./assets/android-icon-background.png",
         "monochromeImage": "./assets/android-icon-monochrome.png"
-      }
+      },
+      "package": "com.rhafah12345.projetoPAM"
     },
     "web": {
       "favicon": "./assets/amora-clarinha.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "75c0ec94-8915-4041-8dfd-a70ea4c3c903"
+      }
     }
   }
 }
